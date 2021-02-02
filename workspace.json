@@ -1,10 +1,68 @@
 {
-  
-  
   "version": 2,
-  
-  "projects": {},
+  "projects": {
+    "pattern-finder": {
+      "root": "apps/pattern-finder",
+      "sourceRoot": "apps/pattern-finder/src",
+      "projectType": "application",
+      "prefix": "pattern-finder",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/apps/pattern-finder",
+            "main": "apps/pattern-finder/src/main.ts",
+            "tsConfig": "apps/pattern-finder/tsconfig.app.json",
+            "assets": [
+              "apps/pattern-finder/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/pattern-finder/src/environments/environment.ts",
+                  "with": "apps/pattern-finder/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "pattern-finder:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/pattern-finder/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/pattern-finder"
+          ],
+          "options": {
+            "jestConfig": "apps/pattern-finder/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
-  }
+    "defaultCollection": "@nrwl/node"
+  },
+  "defaultProject": "pattern-finder"
 }
