@@ -1,4 +1,4 @@
-import { DATA } from '../assets/data';
+import { DATA } from './data';
 
 export function patternFinder( args ) {
     return DATA;

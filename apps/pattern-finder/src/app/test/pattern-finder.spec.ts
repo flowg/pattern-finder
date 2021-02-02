@@ -1,7 +1,8 @@
 /**
  * Internal imports
  */
-import { patternFinder } from './pattern-finder';
+import { patternFinder } from '../pattern-finder';
+import { ANIMALS_WITH_RY } from './mock-data';
 
 describe( 'Pattern Finder', () => {
     const cliArgs: string[] = [
@@ -9,11 +10,12 @@ describe( 'Pattern Finder', () => {
         'path/to/script'
     ];
 
-    it( 'should work', () => {
+    it( 'should return only Animals which name satisfy the given pattern', () => {
         // Adding options relevant to that spec
         const argv: string[] = cliArgs.concat( [
             '--filter=ry'
         ] );
-        expect( patternFinder( argv ) ).not.toEqual( argv );
+
+        expect( patternFinder( argv ) ).toEqual( ANIMALS_WITH_RY );
     } );
 } );
