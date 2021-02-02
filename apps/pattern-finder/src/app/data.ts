@@ -1,4 +1,12 @@
-export const DATA = [
+/**
+ * Internal imports
+ */
+import { Country } from './models';
+
+/**
+ * TypeScript entities and constants
+ */
+export const DATA: Country[] = [
     {
         name: 'Dillauti',
         people:

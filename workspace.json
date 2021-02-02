@@ -15,10 +15,7 @@
           "options": {
             "outputPath": "dist/apps/pattern-finder",
             "main": "apps/pattern-finder/src/main.ts",
-            "tsConfig": "apps/pattern-finder/tsconfig.app.json",
-            "assets": [
-              "apps/pattern-finder/src/assets"
-            ]
+            "tsConfig": "apps/pattern-finder/tsconfig.app.json"
           },
           "configurations": {
             "production": {
