@@ -2,7 +2,11 @@
  * Internal imports
  */
 import { DATA } from './data';
-import { Country } from './models';
+import {
+    Animal,
+    Country,
+    Person
+} from './models';
 
 /**
  * TypeScript entities and constants
@@ -54,6 +58,39 @@ function getValidOptions( args: string[] ): any {
 
 function applyFiltering2Data( pattern: string, data: Country[] ): Country[] {
     const result: Country[] = [];
+    const regex: RegExp = new RegExp( pattern );
+
+    for ( const country of data ) {
+        const peopleMatching: Person[] = [];
+
+        for ( const person of country.people ) {
+            const animalsMatching: Animal[] = person.animals.filter(
+                ( animal: Animal ) => regex.test( animal.name )
+            );
+
+            if ( animalsMatching.length ) {
+                /*
+                 * Some animals, for this person, have a name that satisfies the pattern.
+                 * Adding that partial Person object with only the matching Animals
+                 */
+                peopleMatching.push( {
+                    name:    person.name,
+                    animals: animalsMatching
+                } );
+            }
+        }
+
+        if ( peopleMatching.length ) {
+            /*
+             * Some people, for this country, have an animal with a name that satisfies the pattern.
+             * Adding that partial Country object with only the matching People
+             */
+            result.push( {
+                name:    country.name,
+                people: peopleMatching
+            } );
+        }
+    }
 
     return result;
 }
