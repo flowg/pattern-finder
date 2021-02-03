@@ -24,6 +24,8 @@ export const NO_VALID_OPTION_PROVIDED_MSG: string = `Please, enter at least one 
 --count : return all the data ( eventually filtered if used with --filter ) with the number
     of people by country and the number of animals by person.`;
 
+export const NO_RESULT_AFTER_FILTERING_MSG: string = 'It seems there is no animal which name satisfies this pattern...';
+
 function getValidOptions( args: string[] ): any {
     const validOptions: ProvidedOptions = {};
     const possibleOptions: string[] = args.slice( 2 );
@@ -51,11 +53,15 @@ function getValidOptions( args: string[] ): any {
 }
 
 function applyFiltering2Data( pattern: string, data: Country[] ): Country[] {
+    const result: Country[] = [];
 
+    return result;
 }
 
 function applyCounting2Data( data: Country[] ): Country[] {
+    const result: Country[] = [];
 
+    return result;
 }
 
 export function patternFinder( args: string[] ): string | Country[] {
@@ -66,6 +72,11 @@ export function patternFinder( args: string[] ): string | Country[] {
         if ( options.filter ) {
             // Filtering data according to provided pattern
             result = applyFiltering2Data( options.filter, DATA );
+
+            if ( result.length === 0 ) {
+                // Empty arrays after filtering are NOT returned
+                return NO_RESULT_AFTER_FILTERING_MSG;
+            }
         }
 
         if ( options.count ) {

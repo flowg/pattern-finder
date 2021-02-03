@@ -2,6 +2,7 @@
  * Internal imports
  */
 import {
+    NO_RESULT_AFTER_FILTERING_MSG,
     NO_VALID_OPTION_PROVIDED_MSG,
     patternFinder
 } from '../pattern-finder';
@@ -42,14 +43,26 @@ describe( 'Pattern Finder', () => {
     } );
 
     describe( 'when the filter option is provided', () => {
-        // Adding options relevant for those specs
-        const argv: string[] = cliArgs.concat( [
-            '--filter=ry'
-        ] );
+        it( 'should return only Animals which name satisfies the given pattern', () => {
+            // Adding options relevant for this spec
+            const argv: string[] = cliArgs.concat( [
+                '--filter=ry'
+            ] );
 
-        it( 'should return only Animals which name satisfy the given pattern', () => {
             expect( patternFinder( argv ) ).toEqual( ANIMALS_WITH_RY );
         } );
+
+        it(
+            'should return a specific message when no animal was found with a name satisfying the provided pattern',
+            () => {
+                // Adding options relevant for this spec
+                const argv: string[] = cliArgs.concat( [
+                    '--filter=taro'
+                ] );
+
+                expect( patternFinder( argv ) ).toEqual( NO_RESULT_AFTER_FILTERING_MSG );
+            }
+        );
     } );
 
     describe( 'when the count option is provided', () => {
