@@ -24,7 +24,8 @@ describe( 'Pattern Finder', () => {
     it( 'should return a message to the user when no valid option is provided', () => {
         // Adding options relevant for this spec
         const argv: string[] = cliArgs.concat( [
-            '--tartempion'
+            '--tartempion',
+            '--filter'
         ] );
 
         expect( patternFinder( argv ) ).toEqual( NO_VALID_OPTION_PROVIDED_MSG );
