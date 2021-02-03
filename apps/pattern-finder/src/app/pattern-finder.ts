@@ -86,7 +86,7 @@ function applyFiltering2Data( pattern: string, data: Country[] ): Country[] {
              * Adding that partial Country object with only the matching People
              */
             result.push( {
-                name:    country.name,
+                name:   country.name,
                 people: peopleMatching
             } );
         }
@@ -98,17 +98,35 @@ function applyFiltering2Data( pattern: string, data: Country[] ): Country[] {
 function applyCounting2Data( data: Country[] ): Country[] {
     const result: Country[] = [];
 
+    for ( const country of data ) {
+        const currentCountry: Country = {
+            name:   `${country.name} [${country.people.length}]`,
+            people: []
+        };
+
+        for ( const person of country.people ) {
+            const currentPerson: Person = {
+                name:    `${person.name} [${person.animals.length}]`,
+                animals: person.animals
+            };
+
+            currentCountry.people.push( currentPerson );
+        }
+
+        result.push( currentCountry );
+    }
+
     return result;
 }
 
 export function patternFinder( args: string[] ): string | Country[] {
     const options: ProvidedOptions = getValidOptions( args );
     if ( options ) {
-        let result: Country[];
+        let result: Country[] = DATA;
 
         if ( options.filter ) {
             // Filtering data according to provided pattern
-            result = applyFiltering2Data( options.filter, DATA );
+            result = applyFiltering2Data( options.filter, result );
 
             if ( result.length === 0 ) {
                 // Empty arrays after filtering are NOT returned
